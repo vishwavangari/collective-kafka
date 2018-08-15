@@ -1,1 +1,1 @@
-# collective-kafka
+# Collective-Kafka
