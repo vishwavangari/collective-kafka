@@ -1,33 +1,36 @@
+package json.consumer;
+
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class KafkaConsumerExample {
+public class KafkaConsumerWordCountExample {
 
-    private final static String TOPIC = "collectivetalk123";
+    private final static String TOPIC = "word-count-topic7";
     private final static String BOOTSTRAP_SERVERS = "localhost:9092";
 
-  public static Consumer<String, String> createConsumer() {
+  public static Consumer<String, Long> createConsumer() {
       final Properties props = new Properties();
       props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-      props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer123");
+      props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer11");
       props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-      props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+      props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
       props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
       // Create the consumer using props.
-      final Consumer<String, String> consumer = new KafkaConsumer<>(props);
+      final Consumer<String, Long> consumer = new KafkaConsumer<>(props);
 
       return consumer;
   }
 
     static void runConsumer() {
-        final Consumer<String, String> consumer = createConsumer();
+        final Consumer<String, Long> consumer = createConsumer();
         // Subscribe to the topic.
         consumer.subscribe(Collections.singletonList(TOPIC));
 
@@ -35,7 +38,7 @@ public class KafkaConsumerExample {
         int noRecordsCount = 0;
 
         while (true) {
-            final ConsumerRecords<String, String> consumerRecords =
+            final ConsumerRecords<String, Long> consumerRecords =
                     consumer.poll(Duration.ofSeconds(1000));
 
             if (consumerRecords.count()==0) {

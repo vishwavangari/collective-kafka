@@ -1,4 +1,5 @@
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+package json.producer;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -10,8 +11,8 @@ import java.util.Properties;
 
 public class KafkaProducerExample {
 
-    private final static String TOPIC = "collective-talk7";
-    private final static String BOOTSTRAP_SERVERS = "localhost:9092";
+    private final static String TOPIC = "testSchema";
+    private final static String BOOTSTRAP_SERVERS = "broker-0.k8s.ennate.cloud:9093";
 
     private static Producer<String, String> createProducer() {
         Properties props = new Properties();
@@ -56,6 +57,6 @@ public class KafkaProducerExample {
     }
 
     public static void main(String[] args) throws Exception {
-        runProducer(10);
+        runProducer(1000000);
     }
 }
