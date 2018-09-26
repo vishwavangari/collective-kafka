@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id "com.commercehub.gradle.plugin.avro" version "0.9.1"
+    id "java"
 }
 
 group 'io.collective'
@@ -14,6 +15,10 @@ repositories {
     maven {
         url "http://packages.confluent.io/maven/"
     }
+    maven {
+        name "JCenter Gradle Plugins"
+        url  "https://dl.bintray.com/gradle/gradle-plugins"
+    }
 }
 
 dependencies {
@@ -25,8 +30,16 @@ dependencies {
     compile("org.apache.avro:avro:$avroVersion")
     compile("org.apache.kafka:kafka-streams:$kafkaStreamsVersion")
     compile("io.confluent:kafka-avro-serializer:$confluentVersion")
-    // https://mvnrepository.com/artifact/org.apache.avro/avro-tools
-    compile group: 'org.apache.avro', name: 'avro-tools', version: '1.7.4'
 
     testCompile("junit:junit:$junitVersion")
+}
+
+task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/avro")
+}
+
+compileJava.source(generateAvro.outputs)
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

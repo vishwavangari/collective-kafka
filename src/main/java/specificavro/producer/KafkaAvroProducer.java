@@ -1,8 +1,9 @@
-package avro.producer;
+package specificavro.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import specificavro.LogLine;
 
 import java.util.Properties;
 
@@ -23,7 +24,7 @@ public class KafkaAvroProducer {
 
         Producer<String, LogLine> producer = new KafkaProducer<>(props);
 
-        for (long nEvents = 0; nEvents < 100; nEvents++) {
+        for (long nEvents = 0; nEvents < 1000; nEvents++) {
             LogLine event = EventGenerator.getNext();
             ProducerRecord<String, LogLine> record = new ProducerRecord<>(inputTopic, event.getIp(), event);
             producer.send(record);

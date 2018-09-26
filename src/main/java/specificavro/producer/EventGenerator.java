@@ -1,4 +1,6 @@
-package avro.producer;
+package specificavro.producer;
+
+import specificavro.LogLine;
 
 import java.util.Date;
 import java.util.Random;

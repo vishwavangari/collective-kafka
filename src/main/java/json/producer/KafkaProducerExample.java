@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class KafkaProducerExample {
 
-    private final static String TOPIC = "testSchema";
+    private final static String TOPIC = "test-topic-ksql";
     private final static String BOOTSTRAP_SERVERS = "broker-0.k8s.ennate.cloud:9093";
 
     private static Producer<String, String> createProducer() {
