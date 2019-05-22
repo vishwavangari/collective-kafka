@@ -53,8 +53,8 @@ public class KafkaAvroConsumerExample {
         while (true) {
             ConsumerRecords<String, ?> records = consumer.poll(Duration.ofSeconds(1000));
             for (ConsumerRecord<String, ?> record: records) {
-                log.info("Consumer Record Key.... {}", record.key());
-                log.info("Consumer Record Value....{}", record.value());
+               // log.info("Consumer Record Key.... {}", record.key());
+               // log.info("Consumer Record Value....{}", record.value());
             }
             consumer.commitSync();
         }
