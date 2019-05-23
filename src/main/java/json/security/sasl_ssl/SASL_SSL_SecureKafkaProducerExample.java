@@ -1,18 +1,14 @@
-package json.security;
+package json.security.sasl_ssl;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class SecureKafkaProducerExample {
+public class SASL_SSL_SecureKafkaProducerExample {
 
-    private final static String TOPIC = "test-SASL1";
-    private final static String BOOTSTRAP_SERVERS = "localhost:9093";
+    private final static String TOPIC = "test-SASL23";
+    private final static String BOOTSTRAP_SERVERS = "localhost:9094";
 
     private static Producer<String, String> createProducer() {
         Properties props = new Properties();
@@ -36,9 +32,13 @@ public class SecureKafkaProducerExample {
         //The buffer.memory controls the total amount of memory available to the producer for buffering.
         props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
 
-        props.put("security.protocol", "SASL_PLAINTEXT");
+        props.put("security.protocol", "SASL_SSL");
+        props.put("ssl.truststore.location", "/Users/vishwavangari/Documents/kafka_2.12-2.2.0/config/truststore/kafka.truststore.jks");
+        props.put("ssl.truststore.password", "testdev");
+
         props.put("sasl.mechanism", "SCRAM-SHA-256");
-        props.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username=admin password=admin-secret;");
+        props.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username=alice password=alice-secret;");
+
 
         return new KafkaProducer<>(props);
     }

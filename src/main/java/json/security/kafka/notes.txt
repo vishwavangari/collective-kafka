@@ -1,0 +1,9 @@
+use this server.properties for configuring kafka server.properties for enabling SASL_SSL Protocol.
+
+Use kafka-generate-ssl.sh to generate keystore, truststore and ca.key files.
+use kafka_server_jaas.conf file while starting kafka server in java env variables
+
+
+export KAFKA_OPTS=-Djava.security.auth.login.config=/Users/vishwavangari/Documents/kafka_2.12-2.2.0/config/kafka_server_jaas.conf
+and then start kafka
+bin/kafka-server-start.sh config/server.properties
